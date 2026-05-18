@@ -20,7 +20,7 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Encabezado con degradado y saludo personalizado -->
+            <!-- CABECERA: Saludo personalizado con degradado -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,6 +46,7 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
+            <!-- ACCIONES RÁPIDAS -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,6 +63,7 @@
                 android:columnCount="2"
                 android:alignmentMode="alignMargins">
 
+                <!-- Tarjeta 1: Nueva Cita -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardNuevaCita"
                     android:layout_width="0dp"
@@ -108,6 +110,7 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Tarjeta 2: Chat -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardChat"
                     android:layout_width="0dp"
@@ -155,6 +158,7 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Tarjeta 3: Mapa -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardMapa"
                     android:layout_width="0dp"
@@ -201,6 +205,7 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Tarjeta 4: Marketplace -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardMarketplace"
                     android:layout_width="0dp"
@@ -248,7 +253,7 @@
                 </com.google.android.material.card.MaterialCardView>
             </GridLayout>
 
-            <!-- SECCIÓN PRÓXIMAS CITAS (Faltaba en la versión anterior) -->
+            <!-- SECCIÓN PRÓXIMAS CITAS -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -303,7 +308,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Sección Mis Mascotas -->
+            <!-- SECCIÓN: MIS MASCOTAS -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -395,7 +400,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Sección Mensajes Recientes -->
+            <!-- SECCIÓN: MENSAJES RECIENTES -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
