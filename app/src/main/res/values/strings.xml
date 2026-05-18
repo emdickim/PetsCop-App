@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Petscop</string>
+
+    <string name="login_subtitulo">Tu plataforma veterinaria integral</string>
+
+
+    <string name="perfil">Selecciona tu perfil</string>
+    <string name="cliente">Cliente</string>
+    <string name="dueño">Dueño de mascota</string>
+    <string name="veterinario">Veterinario</string>
+    <string name="profesional">Profesional</string>
+    <string name="email">Email</string>
+    <string name="tu_email">tu@email.com</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="acciones">Acciones Rápidas</string>
+
+    <!-- Inicio Activity -->
+    <string name="nueva_cita">Nueva Cita</string>
+    <string name="nueva_cita_desc">Agenda una consulta</string>
+    <string name="chat_veterinario">Chat Veterinario</string>
+    <string name="chat_veterinario_desc">Consulta rápida</string>
+    <string name="buscar_clinica">Buscar Clínica</string>
+    <string name="buscar_clinica_desc">Veterinarios cercanos</string>
+    <string name="marketplace">Marketplace</string>
+    <string name="marketplace_desc">Productos veterinarios</string>
+    <string name="proximas_citas">Próximas Citas</string>
+    <string name="ver_todas">Ver todas</string>
+    <string name="mis_mascotas">Mis Mascotas</string>
+    <string name="gestionar">Gestionar</string>
+    <string name="mensajes_recientes">Mensajes Recientes</string>
+    <string name="ver_todos">Ver todos</string>
+    <string name="estado_salud">Estado de Salud</string>
+    <string name="estado_salud_desc">Todas tus mascotas al día</string>
+    <string name="mascotas_count">Mascotas</string>
+    <string name="vacunas_dia">Vacunas al día</string>
+    <string name="consultas_anio">Consultas este año</string>
+    <string name="sin_especie">Especie no disponible</string>
+    <string name="sin_raza">Raza no disponible</string>
+    <string name="edad_mascota">Edad: %1$d años</string>
+    <string name="error_usuario_no_encontrado">No se ha encontrado el usuario.</string>
+    <string name="error_cargar_mascotas">Error cargando mascotas: %1$s</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Navigation Drawer -->
+    <string name="open_drawer">Abrir menú</string>
+    <string name="close_drawer">Cerrar menú</string>
+
+</resources>

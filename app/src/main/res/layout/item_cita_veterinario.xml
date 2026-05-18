@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    android:background="@drawable/bg_icon_rounded"
+    android:backgroundTint="@color/card"
+    android:padding="16dp">
+
+    <View
+        android:id="@+id/viewIndicador"
+        android:layout_width="4dp"
+        android:layout_height="0dp"
+        android:background="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFechaCita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="20/05/2026"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/viewIndicador"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvHoraCita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="10:30"
+        android:textColor="@color/muted_foreground"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@id/tvFechaCita"
+        app:layout_constraintTop_toTopOf="@id/tvFechaCita" />
+
+    <TextView
+        android:id="@+id/tvClienteCita"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Juan García"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/viewIndicador"
+        app:layout_constraintTop_toBottomOf="@id/tvFechaCita" />
+
+    <TextView
+        android:id="@+id/tvMotivoCita"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Revisión anual, vacunación"
+        android:textColor="@color/muted_foreground"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/viewIndicador"
+        app:layout_constraintTop_toBottomOf="@id/tvClienteCita" />
+
+    <TextView
+        android:id="@+id/tvEstadoCita"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Pendiente"
+        android:textColor="@color/warning"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/viewIndicador"
+        app:layout_constraintTop_toBottomOf="@id/tvMotivoCita" />
+
+    <Button
+        android:id="@+id/btnAceptarCita"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:text="Aceptar"
+        android:textColor="@color/primary_foreground"
+        android:textSize="12sp"
+        android:backgroundTint="@color/success"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toStartOf="@id/btnRechazarCita"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/viewIndicador"
+        app:layout_constraintTop_toBottomOf="@id/tvEstadoCita" />
+
+    <Button
+        android:id="@+id/btnRechazarCita"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:text="Rechazar"
+        android:textColor="@color/primary_foreground"
+        android:textSize="12sp"
+        android:backgroundTint="@color/destructive"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/btnAceptarCita"
+        app:layout_constraintTop_toTopOf="@id/btnAceptarCita" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

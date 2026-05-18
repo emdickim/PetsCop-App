@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Petscop" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+
+    <style name="Theme.Petscop" parent="Base.Theme.Petscop" />
+
+    <!-- Estilo para el BottomSheet -->
+    <style name="PetscopBottomSheetDialog" parent="Theme.Material3.DayNight.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/PetscopBottomSheetStyle</item>
+    </style>
+
+    <style name="PetscopBottomSheetStyle" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="backgroundTint">@color/card</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Petscop.LargeComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.Petscop.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerSize">24dp</item>
+    </style>
+</resources>

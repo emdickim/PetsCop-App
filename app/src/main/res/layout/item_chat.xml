@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="4dp"
+    android:background="@drawable/bg_item_chat_border"
+    android:padding="16dp">
+
+    <!-- Círculo del Avatar -->
+    <FrameLayout
+        android:id="@+id/flAvatar"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_icon_rounded"
+            android:backgroundTint="#323944" />
+
+        <TextView
+            android:id="@+id/tvInicial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="C"
+            android:textColor="@color/secondary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@drawable/bg_icon_rounded"
+            android:backgroundTint="@color/success" />
+    </FrameLayout>
+
+    <!-- Nombre del Doctor -->
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:text="Dr. Carlos Méndez"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/tvHora"
+        app:layout_constraintStart_toEndOf="@id/flAvatar"
+        app:layout_constraintTop_toTopOf="@id/flAvatar" />
+
+    <!-- Hospital / Clínica (OCULTO) -->
+    <TextView
+        android:id="@+id/tvHospital"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/tvNombre"
+        app:layout_constraintStart_toStartOf="@id/tvNombre"
+        app:layout_constraintTop_toBottomOf="@id/tvNombre" />
+
+    <!-- Último Mensaje -->
+    <TextView
+        android:id="@+id/tvUltimoMensaje"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Recuerda traer el carnet"
+        android:textColor="#8E97A4"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvNotificacion"
+        app:layout_constraintStart_toStartOf="@id/tvNombre"
+        app:layout_constraintTop_toBottomOf="@id/tvNombre" />
+
+    <!-- Hora -->
+    <TextView
+        android:id="@+id/tvHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10:30"
+        android:textColor="@color/muted_foreground"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvNombre" />
+
+    <!-- Badge de Notificación -->
+    <TextView
+        android:id="@+id/tvNotificacion"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_icon_rounded"
+        android:backgroundTint="@color/destructive"
+        android:gravity="center"
+        android:text="2"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHora" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_inicio">
+
+    <fragment
+        android:id="@+id/nav_inicio"
+        android:name="com.mugiwara.petscop.ui.InicioFragment"
+        android:label="Inicio" />
+
+    <!-- Este es el fragmento de la LISTA de chats -->
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.mugiwara.petscop.ui.ListaChatsFragment"
+        android:label="Chat" />
+
+    <!-- NUEVO: Este es el fragmento de los MENSAJES (el detalle) -->
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.mugiwara.petscop.ui.ChatFragment"
+        android:label="Chat Detalle" >
+        <action
+            android:id="@+id/action_chatFragment_to_nav_chat"
+            app:destination="@id/nav_chat"
+            app:popUpTo="@id/nav_chat"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_calendar"
+        android:name="com.mugiwara.petscop.ui.CalendarFragment"
+        android:label="Citas" />
+
+    <fragment
+        android:id="@+id/nav_mascotas"
+        android:name="com.mugiwara.petscop.ui.MascotasFragment"
+        android:label="Mascotas" />
+
+    <fragment
+        android:id="@+id/nav_mapa"
+        android:name="com.mugiwara.petscop.ui.MapaFragment"
+        android:label="Mapa" />
+
+    <fragment
+        android:id="@+id/nav_marketplace"
+        android:name="com.mugiwara.petscop.ui.MarketplaceFragment"
+        android:label="Tienda" />
+
+    <fragment
+        android:id="@+id/nav_carrito"
+        android:name="com.mugiwara.petscop.ui.CarritoFragment"
+        android:label="Carrito" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.mugiwara.petscop.ui.SettingsFragment"
+        android:label="Configuración" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.mugiwara.petscop.ui.ProfileFragment"
+        android:label="Perfil" />
+
+    <fragment
+        android:id="@+id/nav_subscription"
+        android:name="com.mugiwara.petscop.ui.SubscriptionFragment"
+        android:label="Suscripción" />
+
+    <fragment
+        android:id="@+id/nav_ventas"
+        android:name="com.mugiwara.petscop.ui.VentasFragment"
+        android:label="Ventas" />
+
+</navigation>

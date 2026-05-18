@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:attr/colorBackground"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvMascotasTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mis Mascotas"
+        android:textAppearance="?attr/textAppearanceHeadlineSmall"
+        android:textStyle="bold"
+        android:paddingBottom="12dp" />
+
+    <TextView
+        android:id="@+id/tvMascotasDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Aquí puedes ver todas tus mascotas registradas en el sistema." 
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:paddingBottom="16dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMascotas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="12dp" />
+
+    <TextView
+        android:id="@+id/tvEmptyMascotas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No tienes mascotas registradas aún."
+        android:visibility="gone"
+        android:textAppearance="?attr/textAppearanceBodyLarge"
+        android:textAlignment="center"
+        android:paddingTop="20dp"
+        android:textColor="?attr/colorOnBackground" />
+</LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Perfil del Usuario -->
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Perfil" />
+
+    <!-- Configuración -->
+    <item
+        android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Configuración" />
+
+    <!-- Suscripción (solo para veterinarios) -->
+    <item
+        android:id="@+id/nav_subscription"
+        android:icon="@drawable/ic_subscription"
+        android:title="Suscripción" />
+
+    <!-- Ventas (solo para veterinarios) -->
+    <item
+        android:id="@+id/nav_ventas"
+        android:icon="@drawable/ic_carrito"
+        android:title="Ventas" />
+
+    <!-- Carrito (solo para clientes) -->
+    <item
+        android:id="@+id/nav_carrito"
+        android:icon="@drawable/ic_carrito"
+        android:title="Carrito" />
+
+    <!-- Mascotas (solo para clientes) -->
+    <item
+        android:id="@+id/nav_mascotas"
+        android:icon="@drawable/ic_carrito"
+        android:title="Mis Mascotas" />
+
+    <!-- Divider -->
+    <item android:id="@+id/separator" />
+
+    <!-- Cerrar Sesión -->
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Cerrar Sesión" />
+</menu>

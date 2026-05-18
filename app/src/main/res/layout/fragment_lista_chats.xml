@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".ui.ListaChatsFragment">
+
+    <TextView
+        android:id="@+id/tvTituloChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:text="Chat Veterinario"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Contenedor principal de la lista (el recuadro más oscuro) -->
+    <View
+        android:id="@+id/viewContenedorLista"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_icon_rounded"
+        android:backgroundTint="@color/card"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloChat" />
+
+    <!-- Buscador -->
+    <EditText
+        android:id="@+id/etBuscarChat"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_icon_rounded"
+        android:backgroundTint="@color/input_background"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:drawablePadding="10dp"
+        android:hint="Buscar conversación..."
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/muted_foreground"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/viewContenedorLista"
+        app:layout_constraintStart_toStartOf="@id/viewContenedorLista"
+        app:layout_constraintTop_toTopOf="@id/viewContenedorLista" />
+
+    <!-- RecyclerView de Chats -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvListaChats"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/viewContenedorLista"
+        app:layout_constraintEnd_toEndOf="@id/viewContenedorLista"
+        app:layout_constraintStart_toStartOf="@id/viewContenedorLista"
+        app:layout_constraintTop_toBottomOf="@id/etBuscarChat"
+        tools:listitem="@layout/item_chat" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabNuevoChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

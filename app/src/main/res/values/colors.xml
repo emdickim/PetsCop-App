@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basics -->
+    <color name="white">#FFFFFF</color>
+    <color name="background">#1A1D23</color>
+    <color name="foreground">#E9ECEF</color>
+    <color name="card">#252931</color>
+    <color name="card_foreground">#E9ECEF</color>
+    <color name="popover">#252931</color>
+    <color name="popover_foreground">#E9ECEF</color>
+
+    <!-- Primary (Verde aguamarina más suave) -->
+    <color name="primary">#5FBFA3</color>
+    <color name="primary_foreground">#1A1D23</color>
+
+    <!-- Secondary -->
+    <color name="secondary">#5FA7BD</color>
+    <color name="secondary_foreground">#1A1D23</color>
+
+    <!-- Tertiary -->
+    <color name="tertiary">#5F79BD</color>
+    <color name="tertiary_foreground">#FFFFFF</color>
+
+    <!-- Accent -->
+    <color name="accent">#FF7B7B</color>
+    <color name="accent_foreground">#FFFFFF</color>
+    <color name="selecionado">#1A4ecdc4</color>
+
+    <!-- Neutrales -->
+    <color name="muted">#2F333B</color>
+    <color name="muted_foreground">#A0A4AB</color>
+    <color name="border">#3A3F4A</color>
+    <color name="input_background">#2F333B</color>
+    <color name="switch_background">#3A3F4A</color>
+    <color name="ring">#5FBFA3</color>
+
+    <!-- Estados funcionales -->
+    <color name="success">#61DF76</color>
+    <color name="warning">#FFA23B</color>
+    <color name="destructive">#FF6262</color>
+    <color name="info">#5FA7BD</color>
+
+    <!-- Chart colors -->
+    <color name="chart_1">#5FBFA3</color>
+    <color name="chart_2">#5FA7BD</color>
+    <color name="chart_3">#5F79BD</color>
+    <color name="chart_4">#61DF76</color>
+    <color name="chart_5">#FF7B7B</color>
+
+    <!-- Sidebar -->
+    <color name="sidebar">#252931</color>
+    <color name="sidebar_foreground">#E9ECEF</color>
+    <color name="sidebar_primary">#5FBFA3</color>
+    <color name="sidebar_primary_foreground">#1A1D23</color>
+    <color name="sidebar_accent">#2F333B</color>
+    <color name="sidebar_accent_foreground">#E9ECEF</color>
+    <color name="sidebar_border">#3A3F4A</color>
+    <color name="sidebar_ring">#5FBFA3</color>
+
+
+    <!-- Add these specific colors requested by your layout -->
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#757575</color>
+
+    <!-- Add any other standard colors you might need -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="black">#FF000000</color>
+    <color name="light_gray">#E0E0E0</color>
+    <color name="primary_light">#E8F5F0</color>
+
+</resources>

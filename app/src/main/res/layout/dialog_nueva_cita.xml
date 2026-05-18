@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/card">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nueva Cita"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <!-- MASCOTA -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MASCOTA"
+        android:textColor="@color/muted_foreground"
+        android:textSize="12sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="8dp" />
+
+    <Spinner
+        android:id="@+id/spinnerMascota"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/sidebar_accent"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- VETERINARIO -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VETERINARIO"
+        android:textColor="@color/muted_foreground"
+        android:textSize="12sp"
+        android:layout_marginBottom="8dp" />
+
+    <Spinner
+        android:id="@+id/spinnerVeterinario"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/sidebar_accent"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- MOTIVO DE CONSULTA -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MOTIVO DE CONSULTA"
+        android:textColor="@color/muted_foreground"
+        android:textSize="12sp"
+        android:layout_marginBottom="8dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:boxBackgroundColor="@color/sidebar_accent"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etMotivo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Revisión anual, vacunación..."
+            android:inputType="text"
+            android:textColor="@color/white"
+            android:textColorHint="@color/muted_foreground"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- FECHA -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FECHA"
+        android:textColor="@color/muted_foreground"
+        android:textSize="12sp"
+        android:layout_marginBottom="8dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:boxBackgroundColor="@color/sidebar_accent"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="dd/mm/aaaa"
+            android:inputType="none"
+            android:focusable="false"
+            android:textColor="@color/white"
+            android:textColorHint="@color/muted_foreground"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- HORA -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HORA"
+        android:textColor="@color/muted_foreground"
+        android:textSize="12sp"
+        android:layout_marginBottom="8dp" />
+
+    <Spinner
+        android:id="@+id/spinnerHora"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/sidebar_accent"
+        android:padding="12dp"
+        android:layout_marginBottom="24dp" />
+
+    <!-- BOTÓN SOLICITAR CITA -->
+    <Button
+        android:id="@+id/btnSolicitarCita"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Solicitar Cita"
+        android:textColor="@color/primary_foreground"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/primary"
+        android:padding="14dp"
+        app:cornerRadius="12dp" />
+
+</LinearLayout>
