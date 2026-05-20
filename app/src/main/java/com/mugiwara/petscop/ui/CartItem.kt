@@ -8,11 +8,3 @@ data class CartItem(
     val foto_url: String? = null
 )
 
-data class Pedido(
-    val id_pedido: Int = 0,
-    val fecha: String = "",
-    val total: Double = 0.0,
-    val estado: String = "",
-    val direccion: String = "",
-    val items: List<CartItem> = emptyList()
-)

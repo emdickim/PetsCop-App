@@ -25,10 +25,11 @@ import kotlinx.coroutines.launch
  */
 class InicioFragment : Fragment() {
 
-    // View Binding para acceder a los elementos del layout de forma eficiente y segura
+    // _binding: Se utiliza para acceder a los componentes del XML (fragment_inicio.xml) de forma directa
     private var _binding: FragmentInicioBinding? = null
     private val binding get() = _binding!!
     
+    // Declaración de variables para Firebase, API y el adaptador de la lista de citas
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
     private lateinit var apiService: PetscopApiService
@@ -39,7 +40,7 @@ class InicioFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflamos el layout usando View Binding
+        // Inflamos el layout usando View Binding para evitar el uso de findViewById
         _binding = FragmentInicioBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,98 +48,103 @@ class InicioFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializamos los servicios necesarios (Firebase Auth, Firestore y API de FastAPI)
+        // Inicializamos los servicios de autenticación de Firebase, la base de datos Firestore y la API de FastAPI
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
         apiService = PetscopApiService.create()
 
-        // Configuramos los clics de navegación para las tarjetas superiores
+        // Configuramos qué hace cada tarjeta al ser pulsada (ir a Citas, Chat, Mapa o Tienda)
         setupNavigation()
 
-        // Cargamos la información dinámica del usuario y sus citas
+        // Llamamos a los métodos que cargan la información del usuario y sus citas desde los servidores
         cargarNombreUsuario()
         cargarUltimasCitas()
     }
 
     /**
-     * Configura los listeners de clic para navegar a las distintas secciones de la app
-     * utilizando Navigation Component.
+     * Configura la navegación: al pulsar en una tarjeta, la app cambia a la pantalla correspondiente.
      */
     private fun setupNavigation() {
+        // Al pulsar en 'Nueva Cita', navegamos al fragmento del calendario
         binding.cardNuevaCita.setOnClickListener {
             findNavController().navigate(R.id.nav_calendar)
         }
 
+        // Al pulsar en 'Chat', vamos a la sección de mensajes
         binding.cardChat.setOnClickListener {
             findNavController().navigate(R.id.nav_chat)
         }
 
+        // Al pulsar en 'Mapa', abrimos la localización de clínicas
         binding.cardMapa.setOnClickListener {
             findNavController().navigate(R.id.nav_mapa)
         }
 
+        // Al pulsar en 'Marketplace', vamos a la tienda de productos
         binding.cardMarketplace.setOnClickListener {
             findNavController().navigate(R.id.nav_marketplace)
         }
     }
 
     /**
-     * Obtiene el nombre del usuario desde la base de datos Firestore.
-     * Si tiene éxito, actualiza el saludo personalizado en el encabezado.
+     * Busca el nombre del usuario logueado en la base de datos de Firestore.
+     * Esto permite personalizar el saludo en la parte superior de la pantalla.
      */
     private fun cargarNombreUsuario() {
+        // Obtenemos el ID único del usuario actual
         val uid = auth.currentUser?.uid ?: return
 
+        // Consultamos Firestore para obtener el campo 'nombre' del documento del usuario
         db.collection("users").document(uid).get()
             .addOnSuccessListener { document ->
-                // Verificamos que el fragmento siga activo y que el documento del usuario exista
+                // Si el documento existe, actualizamos el TextView con el nombre real
                 if (isAdded && _binding != null && document != null && document.exists()) {
                     val nombre = document.getString("nombre") ?: "Usuario"
-                    // Mostramos el nombre en el encabezado: "¡Hola, [Nombre]!"
                     binding.tvUserGreeting.text = "¡Hola, $nombre!"
                 }
             }
             .addOnFailureListener {
-                // En caso de error, el XML mantiene su valor por defecto
+                // Si hay un error de conexión, el saludo simplemente se queda como estaba por defecto
             }
     }
 
     /**
-     * Recupera la lista completa de citas desde el servidor FastAPI y
-     * muestra únicamente las 3 más próximas en el RecyclerView de inicio.
+     * Llama a la API de FastAPI para obtener las citas del cliente desde la base de datos SQL.
+     * Solo mostramos las 3 citas más próximas para no saturar la pantalla principal.
      */
     private fun cargarUltimasCitas() {
         val email = auth.currentUser?.email
         
+        // Verificamos que el usuario tenga un email válido para realizar la consulta
         if (email.isNullOrEmpty()) {
             return
         }
 
-        // Ejecutamos la llamada de red en una corrutina para no bloquear el hilo principal
+        // Ejecutamos la petición de red dentro de una corrutina para que la app no se congele
         lifecycleScope.launch {
             try {
-                // Llamamos a la API de FastAPI para obtener las citas por email del cliente
+                // Obtenemos la lista completa de citas desde el servidor FastAPI
                 val todasLasCitas = apiService.getCitasPorCliente(email)
                 
-                // Seleccionamos solo las 3 primeras para el resumen rápido
+                // Filtramos la lista para quedarnos solo con las 3 primeras citas
                 val ultimasTres = todasLasCitas.take(3)
                 
                 citas.clear()
                 citas.addAll(ultimasTres)
                 
-                // Actualizamos el RecyclerView si el fragmento sigue cargado
+                // Si el fragmento sigue cargado, configuramos el RecyclerView para mostrar los datos
                 if (_binding != null) {
                     citaAdapter = CitaAdapter(citas)
                     binding.rvCitasProximas.layoutManager = LinearLayoutManager(requireContext())
                     binding.rvCitasProximas.adapter = citaAdapter
                     
-                    // Si no hay citas, mostramos un mensaje informativo
+                    // Si el usuario no tiene citas, mostramos un mensaje indicándolo
                     binding.tvSinCitas.visibility = if (citas.isEmpty()) View.VISIBLE else View.GONE
                 }
             } catch (e: Exception) {
+                // Si el servidor FastAPI da un error 500 o no hay conexión, avisamos al usuario
                 if (isAdded) {
-                    // Notificamos al usuario si hubo un problema al sincronizar con el servidor SQL
-                    Toast.makeText(requireContext(), "Error al sincronizar citas", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Error al sincronizar citas con el servidor", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -146,7 +152,7 @@ class InicioFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        // Liberamos el binding para evitar pérdidas de memoria (memory leaks)
+        // Liberamos el binding al destruir la vista para evitar problemas de memoria
         _binding = null
     }
 }

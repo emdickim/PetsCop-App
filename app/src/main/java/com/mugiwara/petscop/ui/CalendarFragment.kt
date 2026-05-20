@@ -202,44 +202,7 @@ class CalendarFragment : Fragment() {
 
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        lifecycleScope.launch {
-            try {
-                mascotas = apiService.getMascotasPorCliente(email)
-                val adapterMascotas = ArrayAdapter(
-                    requireContext(),
-                    android.R.layout.simple_spinner_item,
-                    mascotas.map { it.nombre }
-                )
-                adapterMascotas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinnerMascota.adapter = adapterMascotas
-
-                veterinarios = apiService.getVeterinariosPorCliente(email)
-                
-                if (veterinarios.isEmpty()) {
-                    Toast.makeText(requireContext(), "No hay veterinarios disponibles en tu zona", Toast.LENGTH_SHORT).show()
-                    dialog.dismiss()
-                    return@launch
-                }
-                
-                val adapterVeterinarios = ArrayAdapter(
-                    requireContext(),
-                    android.R.layout.simple_spinner_item,
-                    veterinarios.map { it.nombre }
-                )
-                adapterVeterinarios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                spinnerVeterinario.adapter = adapterVeterinarios
-
-                android.util.Log.d("CalendarFragment", "Mascotas cargadas: ${mascotas.size}, Veterinarios: ${veterinarios.size}")
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-                android.util.Log.e("CalendarFragment", "Error cargando datos: ${e.message}", e)
-                Toast.makeText(requireContext(), "Error al cargar datos: ${e.message}", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-                return@launch
-            }
-        }
-
+        // Configurar listeners antes de cargar datos
         etFecha.setOnClickListener {
             val calendar = Calendar.getInstance()
             DatePickerDialog(
@@ -290,9 +253,9 @@ class CalendarFragment : Fragment() {
 
             val citaMap = mapOf(
                 "id_mascota" to idMascota,
-                "id_veterinario" to idVeterinario,  // Es String, como viene del API
+                "id_veterinario" to idVeterinario,
                 "motivo" to motivo,
-                "fecha" to fecha,  // Formato: dd/MM/yyyy
+                "fecha" to fecha,
                 "hora" to hora
             )
 
@@ -304,8 +267,10 @@ class CalendarFragment : Fragment() {
                     android.util.Log.d("CalendarFragment", "Respuesta API: $response")
                     Toast.makeText(requireContext(), "Cita solicitada exitosamente", Toast.LENGTH_SHORT).show()
                     dialog.dismiss()
+                    // Recargar citas del cliente para ver la nueva
                     cargarCitasCliente()
                 } catch (e: HttpException) {
+
                     val code = e.code()
                     val body = e.response()?.errorBody()?.string() ?: "Sin detalles"
                     android.util.Log.e("CalendarFragment", "Error HTTP $code: $body", e)
@@ -326,6 +291,49 @@ class CalendarFragment : Fragment() {
             }
         }
 
-        dialog.show()
+        // Cargar datos y mostrar diálogo solo después de cargar
+        lifecycleScope.launch {
+            try {
+                mascotas = apiService.getMascotasPorCliente(email)
+                
+                if (mascotas.isEmpty()) {
+                    Toast.makeText(requireContext(), "No tienes mascotas registradas", Toast.LENGTH_SHORT).show()
+                    return@launch
+                }
+                
+                val adapterMascotas = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    mascotas.map { it.nombre }
+                )
+                adapterMascotas.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerMascota.adapter = adapterMascotas
+
+                veterinarios = apiService.getVeterinariosPorCliente(email)
+                
+                if (veterinarios.isEmpty()) {
+                    Toast.makeText(requireContext(), "No hay veterinarios disponibles en tu zona", Toast.LENGTH_SHORT).show()
+                    return@launch
+                }
+                
+                val adapterVeterinarios = ArrayAdapter(
+                    requireContext(),
+                    android.R.layout.simple_spinner_item,
+                    veterinarios.map { it.nombre }
+                )
+                adapterVeterinarios.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                spinnerVeterinario.adapter = adapterVeterinarios
+
+                android.util.Log.d("CalendarFragment", "Mascotas cargadas: ${mascotas.size}, Veterinarios: ${veterinarios.size}")
+                
+                // Mostrar diálogo solo después de cargar todos los datos exitosamente
+                dialog.show()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                android.util.Log.e("CalendarFragment", "Error cargando datos: ${e.message}", e)
+                Toast.makeText(requireContext(), "Error al cargar datos: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

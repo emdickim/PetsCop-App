@@ -38,6 +38,11 @@
     <string name="sin_especie">Especie no disponible</string>
     <string name="sin_raza">Raza no disponible</string>
     <string name="edad_mascota">Edad: %1$d años</string>
+    <string name="btn_agregar_mascota">Agregar mascota</string>
+    <string name="titulo_nueva_mascota">Nueva mascota</string>
+    <string name="mensaje_completa_campos">Completa todos los campos</string>
+    <string name="mensaje_edad_valida">Ingresa una edad válida</string>
+    <string name="mensaje_mascota_registrada">Mascota registrada</string>
     <string name="error_usuario_no_encontrado">No se ha encontrado el usuario.</string>
     <string name="error_cargar_mascotas">Error cargando mascotas: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->

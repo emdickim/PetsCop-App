@@ -23,6 +23,13 @@
         android:textAppearance="?attr/textAppearanceBodyMedium"
         android:paddingBottom="16dp" />
 
+    <Button
+        android:id="@+id/btnAgregarMascota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_agregar_mascota"
+        android:layout_marginBottom="16dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMascotas"
         android:layout_width="match_parent"
