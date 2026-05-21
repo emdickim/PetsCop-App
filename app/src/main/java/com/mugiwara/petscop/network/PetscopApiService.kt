@@ -1,5 +1,6 @@
 package com.mugiwara.petscop.network
 
+import com.google.gson.JsonObject
 import com.mugiwara.petscop.model.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -28,10 +29,10 @@ interface PetscopApiService {
     suspend fun getCitasPorVeterinario(@Header("X-User-Email") email: String): List<Cita>
 
     @GET("api/mascotas/mis-mascotas")
-    suspend fun getMascotasPorCliente(@Header("X-User-Email") email: String): List<Mascota>
+    suspend fun getMascotasPorCliente(@Header("X-User-Email") email: String): List<Map<String, Any>>
 
-    @POST("api/mascotas")
-    suspend fun crearMascota(@Body mascota: Map<String, Any>, @Header("X-User-Email") email: String): Mascota
+    @POST("api/mascotas/crear")
+    suspend fun crearMascota(@Body mascota: JsonObject, @Header("X-User-Email") email: String): JsonObject
 
     @POST("api/citas")
     suspend fun crearCita(@Body cita: Map<String, Any>, @Header("X-User-Email") email: String): UserResponse

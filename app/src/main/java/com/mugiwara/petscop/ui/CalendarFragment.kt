@@ -294,7 +294,16 @@ class CalendarFragment : Fragment() {
         // Cargar datos y mostrar diálogo solo después de cargar
         lifecycleScope.launch {
             try {
-                mascotas = apiService.getMascotasPorCliente(email)
+                val lista = apiService.getMascotasPorCliente(email)
+                mascotas = lista.map { item ->
+                    val id = (item["id"] as? Number)?.toInt()
+                        ?: (item["id_mascota"] as? Number)?.toInt() ?: 0
+                    val nombre = item["nombre"] as? String ?: ""
+                    val especie = item["especie"] as? String ?: ""
+                    val raza = item["raza"] as? String ?: ""
+                    val edad = (item["edad"] as? Number)?.toInt() ?: 0
+                    Mascota(id_mascota = id, nombre = nombre, especie = especie, raza = raza, edad = edad)
+                }
                 
                 if (mascotas.isEmpty()) {
                     Toast.makeText(requireContext(), "No tienes mascotas registradas", Toast.LENGTH_SHORT).show()

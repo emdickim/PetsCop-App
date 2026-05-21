@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.content.Context
+import android.content.DialogInterface
+import android.util.Log
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -15,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.JsonObject
 import com.mugiwara.petscop.R
 import com.mugiwara.petscop.model.Mascota
 import com.mugiwara.petscop.network.PetscopApiService
@@ -59,78 +64,129 @@ class MascotasFragment : Fragment() {
     }
 
     private fun mostrarDialogoNuevaMascota() {
-        val layout = LinearLayout(requireContext()).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(32, 24, 32, 0)
-        }
+        Log.d("MascotasFragment", "mostrarDialogoNuevaMascota() iniciado")
+        
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_nueva_mascota, null)
+        val etNombre = dialogView.findViewById<EditText>(R.id.etNombreMascota)
+        val etEspecie = dialogView.findViewById<EditText>(R.id.etEspecieMascota)
+        val etRaza = dialogView.findViewById<EditText>(R.id.etRazaMascota)
+        val etEdad = dialogView.findViewById<EditText>(R.id.etEdadMascota)
+        val etPeso = dialogView.findViewById<EditText>(R.id.etPesoMascota)
+        val etFechaNacimiento = dialogView.findViewById<EditText>(R.id.etFechaNacimientoMascota)
+        val etMicrochip = dialogView.findViewById<EditText>(R.id.etMicrochipMascota)
 
-        val etNombre = EditText(requireContext()).apply {
-            hint = "Nombre"
-            layout.addView(this)
-        }
-
-        val etEspecie = EditText(requireContext()).apply {
-            hint = "Especie"
-            layout.addView(this)
-        }
-
-        val etRaza = EditText(requireContext()).apply {
-            hint = "Raza"
-            layout.addView(this)
-        }
-
-        val etEdad = EditText(requireContext()).apply {
-            hint = "Edad"
-            inputType = android.text.InputType.TYPE_CLASS_NUMBER
-            layout.addView(this)
-        }
-
-        AlertDialog.Builder(requireContext())
+        val dialog = AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.titulo_nueva_mascota))
-            .setView(layout)
-            .setPositiveButton(getString(R.string.btn_agregar_mascota)) { _, _ ->
+            .setView(dialogView)
+            .setPositiveButton(getString(R.string.boton_registrar), DialogInterface.OnClickListener { dialogInterface, i ->
+                // Se deja vacío intencionalmente. El listener real se adjunta en setOnShowListener.
+            })
+            .setNegativeButton(getString(R.string.boton_cancelar)) { _, _ -> 
+                Log.d("MascotasFragment", "Botón Cancelar clickeado")
+            }
+            .create()
+
+        dialog.setOnShowListener {
+            Log.d("MascotasFragment", "setOnShowListener disparado")
+            
+            val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            Log.d("MascotasFragment", "positiveButton obtenido: $positiveButton")
+            
+            positiveButton.setOnClickListener {
+                Log.d("MascotasFragment", "Botón Registrar clickeado")
+                
                 val nombre = etNombre.text.toString().trim()
                 val especie = etEspecie.text.toString().trim()
                 val raza = etRaza.text.toString().trim()
                 val edadText = etEdad.text.toString().trim()
+                val pesoText = etPeso.text.toString().trim()
+                val fechaNacimiento = etFechaNacimiento.text.toString().trim()
+                val microchip = etMicrochip.text.toString().trim()
+
+                Log.d("MascotasFragment", "Campos leídos - nombre: $nombre, especie: $especie, raza: $raza, edad: $edadText")
 
                 if (nombre.isEmpty() || especie.isEmpty() || raza.isEmpty() || edadText.isEmpty()) {
+                    Log.d("MascotasFragment", "Validación fallida: campos vacíos")
                     Toast.makeText(requireContext(), getString(R.string.mensaje_completa_campos), Toast.LENGTH_SHORT).show()
-                    return@setPositiveButton
+                    return@setOnClickListener
                 }
 
                 val edad = edadText.toIntOrNull()
                 if (edad == null) {
+                    Log.d("MascotasFragment", "Validación fallida: edad no es válida")
                     Toast.makeText(requireContext(), getString(R.string.mensaje_edad_valida), Toast.LENGTH_SHORT).show()
-                    return@setPositiveButton
+                    return@setOnClickListener
                 }
 
-                crearMascota(nombre, especie, raza, edad)
+                Log.d("MascotasFragment", "Validación exitosa. Llamando crearMascota()")
+                crearMascota(nombre, especie, raza, edad, pesoText, fechaNacimiento, microchip)
+                dialog.dismiss()
             }
-            .setNegativeButton("Cancelar", null)
-            .show()
+        }
+
+        Log.d("MascotasFragment", "Mostrando diálogo")
+        dialog.show()
+
+        // Ensure the first field gets focus and the keyboard is shown so
+        // the InputConnection remains active while the user types.
+        etNombre.post {
+            etNombre.requestFocus()
+            dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+            val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(etNombre, InputMethodManager.SHOW_IMPLICIT)
+        }
+
+        // Hide keyboard cleanly when dialog is dismissed
+        dialog.setOnDismissListener {
+            try {
+                val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(etNombre.windowToken, 0)
+            } catch (_: Exception) {
+            }
+        }
     }
 
-    private fun crearMascota(nombre: String, especie: String, raza: String, edad: Int) {
+    private fun crearMascota(nombre: String, especie: String, raza: String, edad: Int, pesoText: String, fechaNacimiento: String, microchip: String) {
+        Log.d("MascotasFragment", "crearMascota() iniciado con: nombre=$nombre, especie=$especie, raza=$raza, edad=$edad")
+        
         val email = auth.currentUser?.email
-        if (email.isNullOrEmpty()) {
+        val firebaseUid = auth.currentUser?.uid
+        Log.d("MascotasFragment", "Email del usuario: $email, Firebase UID: $firebaseUid")
+        
+        if (email.isNullOrEmpty() || firebaseUid.isNullOrEmpty()) {
+            Log.d("MascotasFragment", "Email o Firebase UID es nulo o vacío")
             Toast.makeText(requireContext(), "No se ha encontrado el usuario", Toast.LENGTH_SHORT).show()
             return
         }
 
-        val mascotaData = mapOf(
-            "nombre" to nombre,
-            "especie" to especie,
-            "raza" to raza,
-            "edad" to edad
-        )
+        val peso = if (pesoText.isNotEmpty()) pesoText.toDoubleOrNull() else null
+        Log.d("MascotasFragment", "Peso: $peso, FechaNacimiento: $fechaNacimiento, Microchip: $microchip")
+        
+        // Crear JsonObject para la API
+        val mascotaJson = JsonObject().apply {
+            addProperty("firebase_uid", firebaseUid)
+            addProperty("nombre", nombre)
+            addProperty("especie", especie)
+            addProperty("raza", raza)
+            addProperty("edad", edad)
+            
+            if (peso != null) addProperty("peso", peso)
+            if (fechaNacimiento.isNotEmpty()) addProperty("fecha_nacimiento", fechaNacimiento)
+            if (microchip.isNotEmpty()) addProperty("microchip", microchip)
+        }
+        
+        Log.d("MascotasFragment", "mascotaJson a enviar: $mascotaJson")
 
+        Log.d("MascotasFragment", "Iniciando lifecycleScope.launch para llamada API")
         lifecycleScope.launch {
             try {
-                apiService.crearMascota(mascotaData, email)
+                Log.d("MascotasFragment", "Llamando apiService.crearMascota()")
+                apiService.crearMascota(mascotaJson, email)
+                Log.d("MascotasFragment", "API call completada exitosamente")
                 Toast.makeText(requireContext(), getString(R.string.mensaje_mascota_registrada), Toast.LENGTH_SHORT).show()
                 cargarMascotas()
             } catch (e: Exception) {
+                Log.e("MascotasFragment", "Error en apiService.crearMascota(): ${e.message}", e)
                 Toast.makeText(requireContext(), "Error al registrar mascota: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
@@ -148,9 +204,17 @@ class MascotasFragment : Fragment() {
             try {
                 val lista = apiService.getMascotasPorCliente(email)
                 mascotas.clear()
-                mascotas.addAll(lista)
+                for (item in lista) {
+                    val id = (item["id"] as? Number)?.toInt()
+                        ?: (item["id_mascota"] as? Number)?.toInt() ?: 0
+                    val nombre = item["nombre"] as? String ?: ""
+                    val especie = item["especie"] as? String ?: ""
+                    val raza = item["raza"] as? String ?: ""
+                    val edad = (item["edad"] as? Number)?.toInt() ?: 0
+                    mascotas.add(Mascota(id_mascota = id, nombre = nombre, especie = especie, raza = raza, edad = edad))
+                }
                 rvMascotas.adapter = MascotaAdapter(mascotas)
-                actualizarVista(lista)
+                actualizarVista(mascotas)
             } catch (e: Exception) {
                 tvEmptyMascotas.text = getString(R.string.error_cargar_mascotas, e.message ?: "")
                 tvEmptyMascotas.visibility = View.VISIBLE

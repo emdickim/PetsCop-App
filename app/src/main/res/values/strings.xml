@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Petscop</string>
+    <string name="app_name">PetSpot</string>
 
     <string name="login_subtitulo">Tu plataforma veterinaria integral</string>
 
@@ -40,6 +40,8 @@
     <string name="edad_mascota">Edad: %1$d años</string>
     <string name="btn_agregar_mascota">Agregar mascota</string>
     <string name="titulo_nueva_mascota">Nueva mascota</string>
+    <string name="boton_registrar">Registrar</string>
+    <string name="boton_cancelar">Cancelar</string>
     <string name="mensaje_completa_campos">Completa todos los campos</string>
     <string name="mensaje_edad_valida">Ingresa una edad válida</string>
     <string name="mensaje_mascota_registrada">Mascota registrada</string>
